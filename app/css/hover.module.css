@@ -1,0 +1,4 @@
+.hover:hover{
+  border: 2px solid rgb(114, 245, 254);
+  box-shadow: 0 0 10px rgb(169, 223, 255);
+}
