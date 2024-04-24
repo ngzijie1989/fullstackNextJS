@@ -4,6 +4,7 @@ import NavBar from "./components/NavBar";
 import { getServerSession } from "next-auth";
 import SessionProvider from './components/SessionProvider'
 import AuthSign from "./components/SessionMenu";
+import toast, { Toaster } from 'react-hot-toast';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default async function RootLayout({ children }) {
         <SessionProvider session={session}>
         <NavBar/>
           {children}
+          <Toaster />
         </SessionProvider>
       </body>
     </html>

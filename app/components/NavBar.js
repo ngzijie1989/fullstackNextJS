@@ -14,7 +14,8 @@ function NavBar() {
         <li><Link href="/upcoming">Upcoming</Link></li>
         <li><Link href="/popular">Popular</Link></li>
         <li><Link href="/top_rated">Top Rated</Link></li>
-        <li><Link href="/now-playing">Now Playing</Link></li>
+        <li><Link href="/now_playing">Now Playing</Link></li>
+        <li><Link href="/favorites">My Favorites</Link></li>
         <li><AuthSign/></li>
       </ul>
     </div>

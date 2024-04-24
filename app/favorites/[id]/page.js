@@ -2,10 +2,9 @@
 
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation'
-import AddToFavorites from './AddToFavorites';
-import { v4 as uuidv4 } from 'uuid';
+import Button from '@/app/components/Button';
 
-function MovieWithDetails() {
+function Page() {
   const searchParams = useSearchParams()
   const title = searchParams.get('title');
   const overview = searchParams.get('overview');
@@ -36,18 +35,6 @@ function MovieWithDetails() {
   const inputDate = release_date;
 const formattedDate = formatDate(inputDate);
 
-
-
-  const propsFavorites = {
-    'id': uuidv4(),
-    'title': title,
-    'overview': overview,
-    'poster_path': poster_path,
-    'release_date': release_date,
-    'vote_average': vote_average,
-    'vote_count': vote_count,
-  }
-
   return (
     <div className="w-[60%] mx-auto my-4">
       <h1 className="font-bold text-4xl mb-3">{title}</h1>
@@ -76,10 +63,11 @@ const formattedDate = formatDate(inputDate);
             </div>
           </div>
       </div>
-
-      <AddToFavorites id={propsFavorites.id} info={propsFavorites} />
+      <div>
+        <Button className="btn btn-primary mt-3">Watched? Add a comment!</Button>
+      </div>
     </div>
   )
 }
 
-export default MovieWithDetails
+export default Page
