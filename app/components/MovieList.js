@@ -2,12 +2,15 @@
 
 import { useEffect, useState } from "react";
 import MovieCard from "./MovieCard";
+import { useDebouncedCallback } from "use-debounce";
 
 function MovieList({type}) {
 
   const [ movieList, setMovieList ] = useState([])
   const [ page, setPage ] = useState(1)
   const [ totalPages, setTotalPages ] = useState(1)
+  const [ search, setSearch ] = useState("")
+  const [ searchPage, setSearchPage ] = useState(1)
 
   const options = {
     method: 'GET',
@@ -36,7 +39,7 @@ function MovieList({type}) {
       }
     }
 
-    getMovieData();
+    getMovieData()
   },[page])
 
   const handlePageIncrement = () => {
@@ -50,10 +53,44 @@ function MovieList({type}) {
     }
   }
 
+  const SearchRun = useDebouncedCallback(async ()=> {
+    if (type === "all") {
+      if (search !== "") {
+        const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&query=${search}&page=${page}`, options)
+        const searchResults = await response.json()
+        const totalPages = searchResults.total_pages
+        setTotalPages(totalPages)
+        setMovieList(searchResults.results)
+        } else {
+          const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${page}&sort_by=popularity.desc`, options)
+          const movies = await response.json()
+          const totalPages = movies.total_pages
+          setTotalPages(totalPages)
+          setMovieList(movies.results)
+          return movies  
+        }
+    } else {
+      const response = await fetch(`https://api.themoviedb.org/3/movie/${type}?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&language=en-US&page=${page}`, options)
+      //need to filter again
+      const searchResults = await response.json()
+      const totalPages = searchResults.total_pages
+      setTotalPages(totalPages)
+      setMovieList(searchResults.results)
+    }
+  },300)
+
+  const HandleSearch = (e) => {
+    setSearch(e.currentTarget.value)
+    SearchRun()
+  }
+
+  console.log(`totalPages = ${totalPages}`)
+  console.log(`page = ${page}`)
+
   return (
       <div>
           <div className='flex justify-center'>
-              <input type="text" placeholder="Search for a movie..." className="input input-bordered w-[50%]" />
+              <input type="text" value={search} onChange={HandleSearch} placeholder="Search for a movie..." className="input input-bordered w-[50%]" />
           </div>
 
           <div className="mx-auto my-3 flex justify-between w-[80%]">
@@ -62,7 +99,7 @@ function MovieList({type}) {
             </div>
 
             <div className="join grid grid-cols-2 w-[20%]">
-              <button onClick={handlePageDecrement} className="join-item btn btn-outline">Previous page</button>
+              <button onClick={handlePageDecrement} className="join-item btn btn-outline">Previous</button>
               <button onClick={handlePageIncrement} className="join-item btn btn-outline">Next</button>
             </div>
         </div>
