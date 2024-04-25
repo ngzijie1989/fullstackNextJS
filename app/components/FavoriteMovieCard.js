@@ -4,7 +4,7 @@ import styles from '@/app/css/hover.module.css'
 import DeleteModal from "./DeleteModal"
 import { useState } from "react"
 
-export default function FavoriteMovieCard({ movie, id }) {
+export default function FavoriteMovieCard({ movie, id, setLoading }) {
   const [ deleteModal, setDeleteModal ] = useState(false);
 
   const Url = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
@@ -26,12 +26,12 @@ export default function FavoriteMovieCard({ movie, id }) {
             <Image width={500}
                   height={500} 
                   src={Url} 
-                  alt={movie.original_title} />
+                  alt={movie.title} />
             </div>
           </div>
         </div>
       </Link>
-      <DeleteModal deleteModal={deleteModal} setDeleteModal={setDeleteModal} movie={movie} id={id} />
+      <DeleteModal deleteModal={deleteModal} setDeleteModal={setDeleteModal} movie={movie} id={id} setLoading={setLoading} />
     </div>
   )
 }

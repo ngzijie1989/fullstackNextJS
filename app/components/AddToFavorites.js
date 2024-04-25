@@ -2,7 +2,7 @@ import toast from "react-hot-toast";
 import Button from "./Button"
 import { useRouter } from "next/navigation";
  
-function AddToFavorites({id, info}) {
+function AddToFavorites({id, info, setLoading}) {
 
   const router = useRouter()
 
@@ -17,12 +17,16 @@ function AddToFavorites({id, info}) {
   const handleFavorite = async (e) => {
     e.preventDefault();
 
+    setLoading(true)
+
     const response = await fetch('/api/favorites/add', addOptions)
 
     if (response.ok === false){
       toast.error('This movie is already in your Watchlist')
+      setLoading(false)
     } else {
       toast.success('Added movie to your list Successfully')
+      setLoading(false)
       router.push("/favorites")
     }
   }

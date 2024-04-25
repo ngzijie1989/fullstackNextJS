@@ -4,8 +4,12 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation'
 import AddToFavorites from './AddToFavorites';
 import { v4 as uuidv4 } from 'uuid';
+import { useState } from 'react';
+import Loading from '../utilis/Loading';
 
 function MovieWithDetails() {
+  const [ loading, setLoading ] = useState(false)
+
   const searchParams = useSearchParams()
   const title = searchParams.get('title');
   const overview = searchParams.get('overview');
@@ -76,8 +80,8 @@ const formattedDate = formatDate(inputDate);
             </div>
           </div>
       </div>
-
-      <AddToFavorites id={propsFavorites.id} info={propsFavorites} />
+      {loading ? Loading() : ""}
+      <AddToFavorites id={propsFavorites.id} info={propsFavorites} setLoading={setLoading} />
     </div>
   )
 }

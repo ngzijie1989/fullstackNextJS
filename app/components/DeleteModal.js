@@ -1,10 +1,24 @@
-function DeleteModal({ deleteModal, setDeleteModal, movie,id }) {
+import toast from "react-hot-toast";
+import { useRouter } from 'next/navigation'
 
-  console.log(movie)
-  console.log(id)
+function DeleteModal({ deleteModal, setDeleteModal, movie, id, setLoading }) {
 
-  const handleDelete = () => {
-    console.log('hello')
+  const router = useRouter()
+
+  const options = {
+    method: 'DELETE', 
+    headers: 
+    { 'Content-Type': 'application/json'},
+    body: JSON.stringify(id)
+  }
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    setLoading(true)
+    const response = await fetch('/api/favorites/delete', options)
+    setDeleteModal(false)
+    toast.success('Movie has been removed from your favorite list')
+    setLoading(true)
   }
 
   return (

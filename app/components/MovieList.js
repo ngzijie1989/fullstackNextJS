@@ -26,8 +26,6 @@ function MovieList({type}) {
     getMovieData();
   },[type])
 
-  console.log(movieList)
-
   return (
       <div className="w-[80%] mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {movieList.map((movie)=> <MovieCard key={movie.id} movie={movie} type={type} />

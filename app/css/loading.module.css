@@ -1,0 +1,12 @@
+.loadingContainer{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: calc(100vh - 64px);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  background-color: rgba(255, 255, 255, 0.75); /* semi-transparent white background */
+}

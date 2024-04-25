@@ -10,7 +10,6 @@ export async function POST(info) {
     where: { email : session.user.email}
   })
 
-  console.log(user.id)
 
   const findFavorite = await prisma.Favorite.findFirst({
     where: { 

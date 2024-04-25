@@ -17,7 +17,6 @@ const authOptions = {
   callbacks: {
     async signIn(user) {
       // Check if the user already exists in the database
-      console.log(user.user.email)
       const existingUser = await prisma.user.findUnique({
         where: { email: user.user.email }
       });
