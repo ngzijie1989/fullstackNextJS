@@ -14,7 +14,7 @@ function WelcomeBanner({ user }) {
             <div className="max-w-5xl">
               <h1 className="mb-5 text-5xl font-bold">Welcome {user}!</h1>
               <p className="mb-5">Go through our App to find the most amazing movies to watch!</p>
-              <Link href="/upcoming">
+              <Link href="/">
                 <Button className="btn btn-primary">Get Started</Button>
               </Link>
             </div>

@@ -3,9 +3,14 @@
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation'
 import Button from '@/app/components/Button';
+import ReviewForm from '@/app/components/ReviewForm';
+import { useState } from 'react';
 
 function Page() {
+  const [ displayForm, setDisplayForm] = useState(false)
+
   const searchParams = useSearchParams()
+  const id = searchParams.get('id');
   const title = searchParams.get('title');
   const overview = searchParams.get('overview');
   const poster_path = searchParams.get('poster_path');
@@ -62,9 +67,6 @@ const formattedDate = formatDate(inputDate);
               <p className="py-3">{vote_count}</p>
             </div>
           </div>
-      </div>
-      <div>
-        <Button className="btn btn-primary mt-3">Watched? Add a comment!</Button>
       </div>
     </div>
   )

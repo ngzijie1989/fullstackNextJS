@@ -6,9 +6,12 @@ import AddToFavorites from './AddToFavorites';
 import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
 import Loading from '../utilis/Loading';
+import Button from './Button';
+import ReviewForm from './ReviewForm';
 
 function MovieWithDetails() {
   const [ loading, setLoading ] = useState(false)
+  const [ displayForm, setDisplayForm] = useState(false)
 
   const searchParams = useSearchParams()
   const title = searchParams.get('title');
@@ -81,7 +84,23 @@ const formattedDate = formatDate(inputDate);
           </div>
       </div>
       {loading ? Loading() : ""}
-      <AddToFavorites id={propsFavorites.id} info={propsFavorites} setLoading={setLoading} />
+      <div className="flex ">
+        <div>
+          <AddToFavorites id={propsFavorites.id} info={propsFavorites} setLoading={setLoading} />
+        </div>
+
+        <div onClick={() => setDisplayForm(true)}
+            onKeyDown={() => setDisplayForm(true)}
+            tabIndex={0}
+            role="button">
+          <Button className="ms-3 btn btn-accent mt-3">Watched? Add a review</Button>
+        </div>
+      </div>
+
+      <div>
+        {displayForm ? <ReviewForm setDisplayForm={setDisplayForm} title={title}/> : ""}
+      </div>
+
     </div>
   )
 }

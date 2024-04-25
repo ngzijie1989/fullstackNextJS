@@ -31,6 +31,7 @@ function Page() {
 
   return (
     <div>
+      <h1 className="w-[80%] mx-auto text-5xl mb-3 font-bold ">My Favorites</h1>
       {loading ? 
         Loading() : 
         (favorites.length === 0 ? 

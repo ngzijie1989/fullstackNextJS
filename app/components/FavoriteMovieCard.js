@@ -17,7 +17,7 @@ export default function FavoriteMovieCard({ movie, id, setLoading }) {
 
   return (
     <div>
-      <Link href={{ pathname: `/favorites/${id}`, query: { title: movie.title, overview: movie.overview, poster_path: movie.poster_path, release_date: movie.release_date, vote_average: movie.vote_average, vote_count: movie.vote_count }}}>
+      <Link href={{ pathname: `/favorites/${id}`, query: { title: movie.title, overview: movie.overview, poster_path: movie.poster_path, release_date: movie.release_date, vote_average: movie.vote_average, vote_count: movie.vote_count, id: movie.id }}}>
         <div className={styles.hover}>
           <div className={styles.cardContainer}>
             <h1 className="text-center py-5 h-11 font-bold flex justify-center items-center">{movie.title}</h1>

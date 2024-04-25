@@ -2,6 +2,7 @@ import NextAuth from "next-auth/next";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import prisma from "@/app/lib/prisma";
+import { redirect } from "next/navigation";
 
 const authOptions = {
   providers: [
@@ -30,8 +31,10 @@ const authOptions = {
           }
         });
       }
-
-      return true;
+      return {
+        user: true,
+        redirect: '/get-started'
+      };
     }
   }
 };
