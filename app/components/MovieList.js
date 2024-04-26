@@ -7,6 +7,8 @@ import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { getCurrentDate } from "../utilis/date";
 import { getEndDatePlusMonth } from "../utilis/date";
 import { getEndDateMinusMonth } from "../utilis/date";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css"; 
 
 function MovieList({type}) {
 
@@ -15,6 +17,9 @@ function MovieList({type}) {
   const [ totalPages, setTotalPages ] = useState(1)
   const [ search, setSearch ] = useState("")
   const [ searchPage, setSearchPage ] = useState(1)
+  const [currentDate, setCurrentDate] = useState(getCurrentDate()); 
+  const [endDatePlusMonth, setEndDatePlusMonth] = useState(getEndDatePlusMonth());
+  const [endDateMinusMonth, setEndDateMinusMonth] = useState(getEndDateMinusMonth()); 
 
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -64,7 +69,7 @@ function MovieList({type}) {
       else if (type === "upcoming" ) {
         const startDate= getCurrentDate()
         const EndDate = getEndDatePlusMonth()
-        const response = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&language=en-US&page=${page}&primary_release_date.gte=${startDate}&primary_release_date.lte=${EndDate}&sort_by=popularity.desc` , options)
+        const response = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&language=en-US&page=${page}&primary_release_date.gte=${currentDate}&primary_release_date.lte=${endDatePlusMonth}&sort_by=popularity.desc` , options)
         const movies = await response.json()
         const totalPages = movies.total_pages
         
@@ -82,7 +87,7 @@ function MovieList({type}) {
           const EndDate= getCurrentDate()
           const startDate = getEndDateMinusMonth()
           
-          const response = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&language=en-US&page=${page}&primary_release_date.gte=${startDate}&primary_release_date.lte=${EndDate}&region=US&sort_by=popularity.desc` , options)
+          const response = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&language=en-US&page=${page}&primary_release_date.gte=${endDateMinusMonth}&primary_release_date.lte=${currentDate}&region=US&sort_by=popularity.desc` , options)
           const movies = await response.json()
           const totalPages = movies.total_pages
           
@@ -98,7 +103,7 @@ function MovieList({type}) {
     }
 
     getMovieData()
-  },[page])
+  },[page, currentDate, endDatePlusMonth, endDateMinusMonth])
 
   const handlePageIncrement = () => {
     if (search === "") {
@@ -215,6 +220,33 @@ function MovieList({type}) {
                 className="input input-bordered w-[50%]" 
               />
             )}
+            {type === "upcoming" &&(
+              <div className="flex flex-col items-center">
+                <div className="mb-2 font-bold">
+                  <p>Date Filter</p>
+                </div>
+
+                <div className="flex">
+                  <div className="border rounded-md me-2 hover:shadow-xl font-bold rounded"><DatePicker className="w-full h-full bg-transparent font-bold text-center outline-none" selected={currentDate} onChange= {(date) => setCurrentDate(date)} /></div>
+                  <p>~</p>
+                  <div className="border rounded-md me-2 hover:shadow-xl font-bold rounded"><DatePicker className="w-full h-full bg-transparent font-bold text-center outline-none" selected={endDatePlusMonth} onChange= {(date) => setEndDatePlusMonth(date)} /></div>
+                </div>
+              </div>
+            )}
+
+              {type === "now_playing" &&(
+                <div className="flex flex-col items-center">
+                  <div className="mb-2 font-bold">
+                    <p>Date Filter</p>
+                  </div>
+
+                  <div className="flex">
+                    <div className="border rounded-md me-2 hover:shadow-xl font-bold rounded"><DatePicker className="w-full h-full bg-transparent font-bold text-center outline-none" selected={endDateMinusMonth} onChange= {(date) => setEndDateMinusMonth(date)} /></div>
+                    <p>~</p>
+                    <div className="border rounded-md me-2 hover:shadow-xl font-bold rounded"><DatePicker className="w-full h-full bg-transparent font-bold text-center outline-none" selected={currentDate} onChange= {(date) => setCurrentDate(date)} /></div>
+                  </div>
+                </div>
+              )}
           </div>
 
           <div className="mx-auto my-3 flex justify-between w-[80%]">
