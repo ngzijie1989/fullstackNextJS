@@ -5,8 +5,6 @@ export async function DELETE(id) {
 
   const response = await id.json()
 
-  console.log(response)
-
   const deleteFavorite = await prisma.Favorite.delete({
     where: {
       id: response

@@ -20,12 +20,10 @@ function ReviewForm({ setDisplayForm, id, title }) {
 
   const handleCommentChange = (e) => {
     setReviewComment(e.target.value)
-    console.log(reviewComment) //ok
   }
 
   const handleRating = (e) => {
     setRating(e.target.value)
-    console.log(rating)
   }
 
   const handleSubmitReview = async (e) => {

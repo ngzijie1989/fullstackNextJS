@@ -13,8 +13,7 @@ function NavBar() {
       <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
         <li><Link href="/all">All Movies</Link></li>
         <li><Link href="/upcoming">Upcoming</Link></li>
-        <li><Link href="/popular">Popular</Link></li>
-        <li><Link href="/top_rated">Top Rated</Link></li>
+        <li><Link href="/greatest-of-all-time">Greatest of all Time</Link></li>
         <li><Link href="/now_playing">Now Playing</Link></li>
         <li><Link href="/favorites">My Favorites</Link></li>
         <li><AuthSign/></li>
