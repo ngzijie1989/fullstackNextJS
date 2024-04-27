@@ -1,0 +1,14 @@
+.shimmer {
+  background: linear-gradient(to right, transparent 0%, #f0f0f0 50%, transparent 100%);
+  background-size: 200% auto;
+  animation: shimmerAnimation 1.5s infinite; /* Adjust animation duration as needed */
+}
+
+@keyframes shimmerAnimation {
+  0% {
+    background-position: -200%;
+  }
+  100% {
+    background-position: 200%;
+  }
+}

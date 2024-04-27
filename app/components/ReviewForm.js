@@ -5,7 +5,7 @@ import { redirect, useRouter } from "next/navigation"
 import Loading from "../utilis/Loading";
 import toast from "react-hot-toast";
 
-function ReviewForm({ setDisplayForm, id, title }) {
+function ReviewForm({ setDisplayForm, tmdbId, title, setReviewLoading }) {
 
   const router = useRouter();
   const [ reviewComment, setReviewComment ] = useState("")
@@ -34,9 +34,9 @@ function ReviewForm({ setDisplayForm, id, title }) {
       review: {
       comment: reviewComment,
       rating: parseFloat(rating),
-      title: title
-      }, 
-      id: id
+      title: title,
+      tmdb: parseInt(tmdbId)
+      }
     }
 
     const options = {
@@ -53,7 +53,8 @@ function ReviewForm({ setDisplayForm, id, title }) {
 
     if (data.data !== '123') {
       setLoading(false)
-      router.replace('/all')
+      setDisplayForm(false)
+      setReviewLoading(true)
       toast.success('Your review has been added successfully')
     } else {
       setLoading(false)

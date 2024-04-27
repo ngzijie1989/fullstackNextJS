@@ -27,7 +27,8 @@ const authOptions = {
         await prisma.user.create({
           data: {
             email: user.user.email,
-            name: user.user.name
+            name: user.user.name,
+            image_path: user.user.image
           }
         });
       }

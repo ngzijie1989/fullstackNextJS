@@ -8,10 +8,17 @@ import { useState } from 'react';
 import Loading from '../utilis/Loading';
 import Button from './Button';
 import ReviewForm from './ReviewForm';
+import { useEffect } from 'react';
+import ReviewContainer from './ReviewContainer';
+import reviewSkeleton from '../utilis/reviewSkeleton';
 
 function MovieWithDetails() {
   const [ loading, setLoading ] = useState(false)
   const [ displayForm, setDisplayForm] = useState(false)
+  const [ reviews, setReviews ] = useState([])
+  const [ user, setUser ] = useState({})
+  const [ check, setCheck ] = useState(false)
+  const [ reviewLoading, setReviewLoading ] = useState(true)
 
   const searchParams = useSearchParams()
   const title = searchParams.get('title');
@@ -20,6 +27,8 @@ function MovieWithDetails() {
   const release_date = searchParams.get('release_date');
   const vote_average = searchParams.get('vote_average');
   const vote_count = searchParams.get('vote_count');
+  const tmdbId = searchParams.get('tmdbId');
+
 
   function formatDate(inputDate) {
     // Parse the input date string
@@ -41,9 +50,7 @@ function MovieWithDetails() {
   }
 
   const inputDate = release_date;
-const formattedDate = formatDate(inputDate);
-
-
+  const formattedDate = formatDate(inputDate);
 
   const propsFavorites = {
     'id': uuidv4(),
@@ -55,6 +62,47 @@ const formattedDate = formatDate(inputDate);
     'vote_count': vote_count,
   }
 
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json'
+    }
+  };
+
+  useEffect(()=> {
+    const getMovieReviews = async () => {
+      const response = await fetch(`/api/reviews/all?tmdbid=${tmdbId}&title=${title}`, options)
+      const reviews = await response.json()
+      setReviews(reviews.data)
+
+      const userResponse = await fetch('/api/user', options)
+      const data = await userResponse.json()
+      const user = data.data
+      setUser(user)
+
+      const reviewsArray = reviews.data
+      const check = reviewsArray.filter((review) => {
+        return review.userId === user.id
+      })
+
+      if (check) {
+        setCheck(true)
+      } else {
+        setCheck(false)
+      }
+
+      setReviewLoading(false)
+
+      return reviews
+    }
+
+      getMovieReviews();
+  },[reviewLoading])
+
+  const handleDisplayForm = () => {
+    return setDisplayForm(true)
+  }
+
   return (
     <div className="w-[60%] mx-auto my-4">
       <h1 className="font-bold text-4xl mb-3">{title}</h1>
@@ -62,44 +110,59 @@ const formattedDate = formatDate(inputDate);
         <Image src={`https://image.tmdb.org/t/p/w500${poster_path}`} alt={title} width="400" height="500" />
 
         <div className="text-center md:text-left mt-3 px-5 flex flex-col justify-around">
-            <div>
-              <h3 className="font-bold">Overview</h3>
-              <p className="py-3">{overview}</p>
-            </div>
-
-            <div>
-              <h3 className="font-bold ">Release Date</h3>
-              <p className="py-3">{formattedDate}</p> 
-            </div>
-
-            <div>
-              <h3 className="font-bold ">Vote Count</h3>
-              <p className="py-3">{vote_average} / 10</p>
-            </div>
-
-            <div>
-              <h3 className="font-bold ">Vote_Average</h3>
-              <p className="py-3">{vote_count}</p>
-            </div>
+          <div>
+            <h3 className="font-bold">Overview</h3>
+            <p className="py-3">{overview}</p>
           </div>
-      </div>
-      {loading ? Loading() : ""}
-      <div className="flex ">
-        <div>
-          <AddToFavorites id={propsFavorites.id} info={propsFavorites} setLoading={setLoading} />
-        </div>
 
-        <div onClick={() => setDisplayForm(true)}
-            onKeyDown={() => setDisplayForm(true)}
-            tabIndex={0}
-            role="button">
-          <Button className="ms-3 btn btn-accent mt-3">Watched? Add a review</Button>
+          <div>
+            <h3 className="font-bold ">Release Date</h3>
+            <p className="py-3">{formattedDate}</p> 
+          </div>
+
+          <div>
+            <h3 className="font-bold ">Vote Count</h3>
+            <p className="py-3">{vote_average} / 10</p>
+          </div>
+
+          <div>
+            <h3 className="font-bold ">Vote_Average</h3>
+            <p className="py-3">{vote_count}</p>
+          </div>
         </div>
       </div>
+
+      {loading ? Loading() : ""}
+      
+      <div>{reviewLoading ? reviewSkeleton() :
 
       <div>
-        {displayForm ? <ReviewForm setDisplayForm={setDisplayForm} title={title}/> : ""}
+        <div className="flex ">
+          <div>
+            <AddToFavorites id={propsFavorites.id} info={propsFavorites} setLoading={setLoading} />
+          </div>
+          
+
+          <div className={`${check ? "" : "btn-disabled"}`}
+              onClick={handleDisplayForm}
+              onKeyDown={handleDisplayForm}
+              tabIndex={0}
+              role="button"
+              >
+            <Button className={`ms-3 btn btn-accent mt-3 ${check ? "" : "btn-disabled"}`}>{check ? "Watched? Add a review!" : "You have already added a review"}</Button>
+          </div>
+        </div>
+
+        <div>
+          {displayForm ? <ReviewForm setDisplayForm={setDisplayForm} title={title} tmdbId={tmdbId} setReviewLoading={setReviewLoading}/> : ""}
+        </div>
+
+        <div>
+        {displayForm ? "" : <ReviewContainer reviews={reviews} />}
+        </div>
+      </div>}
       </div>
+
 
     </div>
   )

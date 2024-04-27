@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const getCurrentDate = () => {
   const fromDate = Date.now()
   const date = new Date(fromDate);
@@ -29,4 +31,21 @@ export const getEndDateMinusMonth = () => {
 
   const formatDate = `${year}-${month}-${day}`
   return formatDate
+}
+
+export const formatISO= (toFormat) => {
+
+  const formatDate= new Date(toFormat)
+  const DateString= formatDate.toString()
+  
+  const splitDate = DateString.split(" ")
+
+  const dateProper = splitDate[2] + " " + splitDate[1] + " " + splitDate[3]
+
+  let options = { timeStyle: 'short', hour12: true };
+  let timeString = formatDate.toLocaleTimeString('en-US', options);
+  
+  const fullDateFormat = dateProper + ', ' + timeString
+
+  return fullDateFormat
 }

@@ -1,0 +1,10 @@
+.imageavatar{
+  border-radius: 50%;
+  border: 0.5px solid grey;
+}
+
+.reviewImageAvatar{
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+}
