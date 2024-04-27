@@ -17,5 +17,6 @@ export async function GET(req) {
       User: true
     }
   })
+  
     return NextResponse.json({data: reviews})
 }

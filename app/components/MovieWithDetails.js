@@ -19,6 +19,7 @@ function MovieWithDetails() {
   const [ user, setUser ] = useState({})
   const [ check, setCheck ] = useState(false)
   const [ reviewLoading, setReviewLoading ] = useState(true)
+  const [ filter, setFilter ] = useState("")
 
   const searchParams = useSearchParams()
   const title = searchParams.get('title');
@@ -85,7 +86,7 @@ function MovieWithDetails() {
         return review.userId === user.id
       })
 
-      if (check) {
+      if (check.length > 0) {
         setCheck(true)
       } else {
         setCheck(false)
@@ -143,22 +144,22 @@ function MovieWithDetails() {
           </div>
           
 
-          <div className={`${check ? "" : "btn-disabled"}`}
+          <div className={`${check ? "btn-disabled" : ""}`}
               onClick={handleDisplayForm}
               onKeyDown={handleDisplayForm}
               tabIndex={0}
               role="button"
               >
-            <Button className={`ms-3 btn btn-accent mt-3 ${check ? "" : "btn-disabled"}`}>{check ? "Watched? Add a review!" : "You have already added a review"}</Button>
+            <Button className={`ms-3 btn btn-accent mt-3 ${check ? "btn-disabled" : "" }`}>{check ? "You have already added a review" : "Watched? Add a review!" }</Button>
           </div>
         </div>
-
+        
         <div>
           {displayForm ? <ReviewForm setDisplayForm={setDisplayForm} title={title} tmdbId={tmdbId} setReviewLoading={setReviewLoading}/> : ""}
         </div>
 
         <div>
-        {displayForm ? "" : <ReviewContainer reviews={reviews} />}
+        {displayForm ? "" : <ReviewContainer reviews={reviews} setFilter={setFilter} setReviews={setReviews} />}
         </div>
       </div>}
       </div>
