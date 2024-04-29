@@ -17,6 +17,8 @@ export async function GET(req) {
       User: true
     }
   })
+
+    const sortReviews = await reviews.sort((a,b)=>  new Date(b.CreatedAt) - new Date(a.CreatedAt))
   
-    return NextResponse.json({data: reviews})
+    return NextResponse.json({data: sortReviews})
 }

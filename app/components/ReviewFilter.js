@@ -4,23 +4,16 @@ function ReviewFilter({setFilter, reviews, setReviews}) {
     setFilter(e.target.value)
 
     if (e.target.value === "Highest Rating") {
-      console.log(reviews)
-      const sortReviews = reviews.sort((a,b)=> a.rating - b.rating)
-      setReviews(sortReviews)
-      console.log(reviews)
-      //carry out a re-render
-    } else if (e.target.value === "Lowest Rating") {
-      console.log(reviews)
       const sortReviews = reviews.sort((a,b)=> b.rating - a.rating)
       setReviews(sortReviews)
-      console.log(reviews)
-      //carry out a re-render
-    } else if (e.target.value === "Date"){
-      console.log(reviews)
-      const sortReviews = reviews.sort((a,b)=> a.CreatedAt - b.CreatedAt)
+
+    } else if (e.target.value === "Lowest Rating") {
+      const sortReviews = reviews.sort((a,b)=> a.rating - b.rating)
       setReviews(sortReviews)
-      console.log(reviews)
-      //carry out a re-render
+      
+    } else if (e.target.value === "Date"){
+      const sortReviews = reviews.sort((a,b)=>  new Date(b.CreatedAt) - new Date(a.CreatedAt))
+      setReviews(sortReviews)
     }
   }
 

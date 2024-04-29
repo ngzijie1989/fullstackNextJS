@@ -11,6 +11,7 @@ import styles from '@/app/css/avatar.module.css'
 function ReviewCard({review}) {
   const [ rating, setRating ] = useState(review.rating)
   const [ timestamp, setTimeStamp ] = useState("")
+  const [error, setError] = useState(false);
 
   useEffect(()=>{
     const toFormat = review.CreatedAt
@@ -18,12 +19,18 @@ function ReviewCard({review}) {
     return setTimeStamp(timeFormat)
   },[])
 
+  const handleError = () => {
+    setError(true);
+  };
+
   return (
-    <div className="flex">
-      <div>
+    <div className="flex mb-3">
+      <div className="my-auto">
       <img  
-        src={review.User.image_path} 
-        alt={review.User.name} className={styles.reviewImageAvatar} />
+        src={error ? "/nouserimagesquare.jpg" : review.User.image_path} 
+        alt={review.User.name} className={styles.reviewImageAvatar}
+        onError={handleError}
+        />
       </div>
 
       <div className="bg-white p-4 ms-3 rounded-md w-[100%]">
