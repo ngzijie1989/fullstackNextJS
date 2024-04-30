@@ -11,6 +11,8 @@ import ReviewForm from './ReviewForm';
 import { useEffect } from 'react';
 import ReviewContainer from './ReviewContainer';
 import reviewSkeleton from '../utilis/reviewSkeleton';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 
 function MovieWithDetails() {
   const [ loading, setLoading ] = useState(false)
@@ -29,6 +31,12 @@ function MovieWithDetails() {
   const vote_average = searchParams.get('vote_average');
   const vote_count = searchParams.get('vote_count');
   const tmdbId = searchParams.get('tmdbId');
+
+  const session = useSession()
+
+  if (!session.data || !session.status === "authenticated") {
+    redirect("/no-access")
+  }
 
 
   function formatDate(inputDate) {

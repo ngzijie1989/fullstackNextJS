@@ -1,16 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link"
-import { useSession, signIn, signOut } from "next-auth/react"
+// import { useSession, signIn, signOut } from "next-auth/react"
 import AuthSign from "./SessionMenu"
 import Image from "next/image"
-import { getServerSession } from "next-auth";
+import { auth, signIn, signOut } from "@/auth"
 import styles from '@/app/css/avatar.module.css'
+import SignInNav from "./signInNav"
+import SignOutComponent from "./signOut"
 
 async function NavBar() {
 
-  const session = await getServerSession();
-
-  console.log(session.user.image)
+  const session = await auth();
 
   return (
     <div className="navbar bg-base-100 p-3">
@@ -25,7 +25,7 @@ async function NavBar() {
         <li><Link href="/greatest-of-all-time">Greatest of all Time</Link></li>
         <li><Link href="/now_playing">Now Playing</Link></li>
         <li><Link href="/favorites">My Favorites</Link></li>
-        <li><AuthSign/></li>
+        <li>{session && session.user ? (<SignOutComponent />) : (<SignInNav/ >)}</li>
       </ul>
     </div>
   </div>
@@ -40,7 +40,7 @@ async function NavBar() {
       </div>
     </button>
     <Link href="/account" className="btn btn-ghost btn-circle ">
-      <img src={session.user.image} alt={session.user.name} className={styles.imageavatar} />
+      {/* <img src={session.user.image} alt={session.user.name} className={styles.imageavatar} /> */}
     </Link>
   </div>
 </div>

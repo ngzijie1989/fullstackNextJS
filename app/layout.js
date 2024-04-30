@@ -1,11 +1,12 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/NavBar";
-import { getServerSession } from "next-auth";
+import { auth } from "@/auth"
 import SessionProvider from './components/SessionProvider'
 import AuthSign from "./components/SessionMenu";
 import toast, { Toaster } from 'react-hot-toast';
 import { redirect } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,16 +16,12 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const session = await getServerSession();
-
-  if (!session || !session.user) {
-    redirect("/api/auth/signin")
-  }
+  const session = auth()
 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <SessionProvider session={session}>
+        <SessionProvider session={session}> 
         <NavBar/>
           {children}
           <Toaster />

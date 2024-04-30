@@ -4,10 +4,18 @@ import { useEffect, useState } from "react"
 import FavoriteMovieCard from "../components/FavoriteMovieCard";
 import Loading from "../utilis/Loading";
 import styles from '@/app/css/favorite.module.css'
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 function Page() {
   const [ favorites, setFavorites ] = useState([])
   const [ loading, setLoading ] = useState(true)
+
+  const session = useSession()
+
+  if (!session.data || !session.status === "authenticated") {
+    redirect("/no-access")
+  }
 
   const options = {
     method: 'GET',
