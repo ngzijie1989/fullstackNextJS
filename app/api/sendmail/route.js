@@ -1,6 +1,7 @@
 import { SendMail } from "@/app/lib/mail"
 import { NextResponse } from "next/server"
 import prisma from "@/app/lib/prisma"
+import { v4 as uuidv4 } from 'uuid';
 
 export async function GET(req){
   try{
@@ -18,7 +19,15 @@ export async function GET(req){
       const info = "Error"
       return NextResponse.json({data: info})
     } else {
-      const body = `Please click on this link to reset your password. http://localhost:3000/api/resetpassword?email=${email}`
+      const specialToken = uuidv4().replace(/-/g, '');
+      const resetToken = await prisma.ResetToken.create({
+        data: {
+          resetToken: specialToken,
+          userId: user.id
+        }
+      })
+
+      const body = `Please click on this link to reset your password. http://localhost:3000/resetpassword?token=${specialToken}&email=${email}`
       await SendMail(email, "Movie Hunt: Reset Password", body)
       const info = "Successful"
       return NextResponse.json({data: info})

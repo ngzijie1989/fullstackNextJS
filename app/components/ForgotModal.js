@@ -1,13 +1,20 @@
 import React from 'react'
 import { useState } from 'react'
 
-function ForgotModal({forgotModal, setForgotModal, onChange, emailField, onSubmit, afterSubmit, resServerError, resError}) {
+function ForgotModal({forgotModal, setForgotModal, onChange, emailField, onSubmit, afterSubmit, resServerError, resError, setAfterSubmit, setEmailField}) {
+
+  const handleCancel =() => {
+    setAfterSubmit(false)
+    setForgotModal(false)
+    setEmailField("")
+    return ""
+  }
 
   return (
     <div>
       <div className={`modal ${forgotModal ? "modal-open" : ""}`}>
         <div className="modal-box relative">
-          <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2" onClick={()=> setForgotModal(false)}><button onClick={()=> setForgotModal(false)}>✕</button></label>
+          <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2" onClick={handleCancel}><button onClick={()=> setForgotModal(false)}>✕</button></label>
           <h3 className="text-lg font-bold">Reset Password</h3>
 
           {afterSubmit ? 

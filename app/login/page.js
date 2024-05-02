@@ -44,13 +44,15 @@ function Page() {
     setLoading(true)
     const res = await ResetPassword(emailField)
 
-    if (res === "successful"){
+    if (res === "Successful"){
       console.log("test")
       setAfterSubmit(true)
       setLoading(false)
+
     } else if (res === "Error"){
       setLoading(false)
       setResError(true)
+
     } else if (res === "Server Error") {
       setLoading(false)
       setResServerError(true)
@@ -64,7 +66,8 @@ function Page() {
       <ActivationModal setModal={setModal} modal={modal} />
       <ForgotModal forgotModal={forgotModal} setForgotModal={setForgotModal} 
                   onChange={handleChange} emailField={emailField} onSubmit={handleSubmit} 
-                  afterSubmit={afterSubmit} resError={resError} resServerError={resServerError}/>
+                  afterSubmit={afterSubmit} resError={resError} resServerError={resServerError} 
+                  setAfterSubmit={setAfterSubmit} setEmailField={setEmailField}/>
     </div>
   )
 }

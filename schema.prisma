@@ -22,6 +22,16 @@ model User {
   Favorite      Favorite[]
   Review        Review[]
   activateToken ActivateToken[]
+  resetToken    ResetToken[]
+}
+
+model ResetToken {
+  id          String    @id @default(cuid())
+  resetToken  String
+  activatedAt DateTime?
+  createdAt   DateTime  @default(now())
+  user        User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId      String?
 }
 
 model ActivateToken {
@@ -31,12 +41,12 @@ model ActivateToken {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt //When applied to a field of type DateTime, this directive ensures that whenever the corresponding record is updated, the value of the updatedAt field is automatically set to the current date and time.
-  user      User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
   userId    String?
 }
 
 model Favorite {
-  id           String @unique
+  id           String  @unique
   title        String
   overview     String
   poster_path  String

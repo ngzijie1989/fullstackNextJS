@@ -42,12 +42,12 @@ function Page() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(userInfo)
-    }
+      }
   
       const response = await fetch('/api/user/create', options)
       const createUser = await response.json()
       
-      if (createUser.data.error === "Server error") {
+      if (createUser.data.error === "Server Error") {
         setLoading(false)
         setError(true)
         setErrorMessage("Server Error. Please try again")
