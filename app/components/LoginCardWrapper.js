@@ -1,18 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 
-
 import styles from "@/app/css/loginForm.module.css"
 import Link from "next/link"
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { AuthenticationError } from "./Errors";
-import { useEffect } from "react";
-import SendMail from "@/app/lib/mail"
 
 function LoginCardWrapper({ email, password, setPassword, setEmail }) {
-
-//   useEffect(  ()=>{ const send = async () => {await SendMail("ngzijie89@gmail.com", "hello", "Hello")}
-// send()},[])
 
   const handleSubmitGoogle = (event) => {
     event.preventDefault();

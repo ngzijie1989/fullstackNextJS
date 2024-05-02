@@ -1,6 +1,7 @@
 import MovieList from "../components/MovieList"
 
-function page() {
+async function page() {
+
   return (
     <div>
       <MovieList type="now_playing"/>

@@ -56,7 +56,8 @@ function Page() {
         setError(true)
         setErrorMessage("There is existing email registered. Please use another email")
       } else {
-        router.push(('/login'))
+        const redirectUrl = `http://localhost:3000?redirect=true`;
+        router.push(redirectUrl)
         toast.success('User account has been created successfully')
       }
     }

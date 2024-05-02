@@ -9,6 +9,7 @@ import { getEndDatePlusMonth } from "../utilis/date";
 import { getEndDateMinusMonth } from "../utilis/date";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; 
+import SignupModal from "./SignupModal";
 
 function MovieList({type}) {
 
@@ -20,11 +21,20 @@ function MovieList({type}) {
   const [currentDate, setCurrentDate] = useState(getCurrentDate()); 
   const [endDatePlusMonth, setEndDatePlusMonth] = useState(getEndDatePlusMonth());
   const [endDateMinusMonth, setEndDateMinusMonth] = useState(getEndDateMinusMonth()); 
+  const [ signUpModal, setSignUpModal ] = useState(false)
 
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
   const router = useRouter();
+  const redirect = searchParams.get("redirect")
+
+  useEffect(()=>{ 
+    if (redirect === "true") {
+      setSignUpModal(true)
+      }
+    }
+  ,[])
 
   const options = {
     method: 'GET',
@@ -210,6 +220,7 @@ function MovieList({type}) {
 
   return (
       <div>
+          <SignupModal signupModal={signUpModal} setSignUpModal={setSignUpModal} />
           <div className='flex justify-center'>
             {type === 'all' && (
               <input 

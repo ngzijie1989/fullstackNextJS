@@ -2,6 +2,7 @@ import prisma from "@/app/lib/prisma"
 import { NextResponse } from "next/server"
 import { hash } from "bcrypt"
 import { v4 as uuidv4 } from 'uuid';
+import { SendMail } from "@/app/lib/mail";
 
 export async function POST(info) {
   try {
@@ -31,6 +32,11 @@ export async function POST(info) {
           userId: userCreate.id
         }
       })
+      console.log(token)
+
+      // await SendMail("ngzijie89@gmail.com", "test", "hello world")
+      const emailBody = `Hello ${response.name}, Please activate your account by clicking on this link: http://localhost:3000/api/activate?token=${token.token}`
+      const sendMail = await SendMail(response.email, "Verification of Movie Hunt Account", emailBody)
 
       if (!userCreate){
         const error = { error: "Failed to create user" }
