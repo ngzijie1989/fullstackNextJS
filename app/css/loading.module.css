@@ -7,6 +7,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+  z-index: 1000;
   background-color: rgba(255, 255, 255, 0.75); /* semi-transparent white background */
 }

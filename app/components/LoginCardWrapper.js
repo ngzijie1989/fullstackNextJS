@@ -5,8 +5,9 @@ import Link from "next/link"
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { AuthenticationError } from "./Errors";
+import { useState } from "react";
 
-function LoginCardWrapper({ email, password, setPassword, setEmail }) {
+function LoginCardWrapper({ email, password, setPassword, setEmail, onClick }) {
 
   const handleSubmitGoogle = (event) => {
     event.preventDefault();
@@ -60,7 +61,7 @@ function LoginCardWrapper({ email, password, setPassword, setEmail }) {
       </div>
 
       <div className="flex flex-col">
-        <Link href="/" className="hover:underline text-blue-700 ">Forgot Password?</Link>
+        <button  onClick={onClick} className="hover:underline text-blue-700 text-left">Forgot Password?</button>
         <Link href="/signup" className="hover:underline text-blue-700 ">Dont have an account? Sign Up</Link>
       </div>
     </div>
