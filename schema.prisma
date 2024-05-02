@@ -11,12 +11,28 @@ datasource db {
 }
 
 model User {
-  id         String     @id @default(cuid())
-  name       String
-  email      String     @unique
-  image_path String?
-  Favorite   Favorite[]
-  Review     Review[]
+  id            String          @id @default(cuid())
+  name          String
+  email         String          @unique
+  image_path    String?
+  provider      String?
+  password      String?
+  CreatedAt     DateTime        @default(now())
+  active        Boolean         @default(false) //this is for the email verification it needs to be active true 
+  Favorite      Favorite[]
+  Review        Review[]
+  activateToken ActivateToken[]
+}
+
+model ActivateToken {
+  id          Int       @id @default(autoincrement())
+  token       String    @unique
+  activatedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt //When applied to a field of type DateTime, this directive ensures that whenever the corresponding record is updated, the value of the updatedAt field is automatically set to the current date and time.
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
 }
 
 model Favorite {
@@ -27,8 +43,8 @@ model Favorite {
   release_date String
   vote_average String
   vote_count   String
-  user         User   @relation(fields: [userId], references: [id])
-  userId       String
+  user         User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId       String?
 }
 
 model Review {

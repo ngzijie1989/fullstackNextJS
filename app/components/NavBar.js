@@ -1,16 +1,20 @@
 /* eslint-disable @next/next/no-img-element */
+
+
 import Link from "next/link"
 // import { useSession, signIn, signOut } from "next-auth/react"
 import AuthSign from "./SessionMenu"
 import Image from "next/image"
-import { auth, signIn, signOut } from "@/auth"
+import { signIn, signOut } from "@/auth"
 import styles from '@/app/css/avatar.module.css'
 import SignInNav from "./signInNav"
 import SignOutComponent from "./signOut"
+import FetchUser from "../action/FetchUser"
+import { auth } from "@/auth"
 
 async function NavBar() {
-
-  const session = await auth();
+  const session = await auth()
+  // const user = await FetchUser();
 
   return (
     <div className="navbar bg-base-100 p-3">
@@ -25,7 +29,6 @@ async function NavBar() {
         <li><Link href="/greatest-of-all-time">Greatest of all Time</Link></li>
         <li><Link href="/now_playing">Now Playing</Link></li>
         <li><Link href="/favorites">My Favorites</Link></li>
-        <li>{session && session.user ? (<SignOutComponent />) : (<SignInNav/ >)}</li>
       </ul>
     </div>
   </div>
@@ -39,9 +42,18 @@ async function NavBar() {
         <span className="badge badge-xs badge-primary indicator-item"></span>
       </div>
     </button>
-    <Link href="/account" className="btn btn-ghost btn-circle ">
-      {/* <img src={session.user.image} alt={session.user.name} className={styles.imageavatar} /> */}
-    </Link>
+
+    <div className="dropdown dropdown-end">
+      <div tabIndex={0} role="button" className="btn btn-ghost btn-circle flex">
+      {session ? <img src={session.user.image} alt={session.user.name} className={styles.imageavatar}/> 
+      : 
+      <img src="/nouserimagesquare.jpg" alt="noimage" className={styles.imageavatar}/>}
+      </div>
+      <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+        {session && session.user ? <li><Link href="/account">My Account</Link></li> : ""}
+        <li>{session && session.user ? (<SignOutComponent />) : (<SignInNav/ >)}</li>
+      </ul>
+    </div>
   </div>
 </div>
   )

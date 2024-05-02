@@ -2,6 +2,9 @@
   "name": "applicationfullstack",
   "version": "0.1.0",
   "private": true,
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -18,9 +21,10 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@prisma/client": "^5.13.0",
     "@vercel/postgres": "^0.8.0",
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "moment": "^2.30.1",
-    "next": "14.2.2",
+    "next": "^14.2.3",
     "next-auth": "^5.0.0-beta.17",
     "nodemailer": "^6.9.13",
     "react": "^18",

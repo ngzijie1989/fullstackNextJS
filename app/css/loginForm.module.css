@@ -1,0 +1,46 @@
+.loginContainer{
+  /* display: flex; */
+  /* justify-content: center;
+  align-items: center; */
+  border: 1px solid grey;
+  padding: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 15px 25px 15px 25px;
+}
+
+.googleButton{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f6f7fb; /* Google Blue */
+  color: black;
+  border: 0.5px solid grey;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.googleLogo{
+  height: 1rem; 
+}
+
+.signUpContainer{
+  /* display: flex; */
+  /* justify-content: center;
+  align-items: center; */
+  width: 30%;
+  margin: 0 auto;
+  border: 1px solid grey;
+  padding: 15px 25px 15px 25px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

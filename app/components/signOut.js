@@ -1,12 +1,27 @@
 'use client'
 
-import { signOut as signOutFunction } from "next-auth/react";
+import { signOut } from "next-auth/react";
+// import { useRouter } from 'next/navigation'
+// import { useSession } from "next-auth/react";
 
 function SignOutComponent() {
+
+  // const router = useRouter()
+  // const session = useSession()
+
+  // const SessionCheck = async () => {
+  //   if (!session) {
+  //     await router.push('/')
+  //   }
+  // }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await signOutFunction(); // Call the imported signIn function
+    await signOut({ callbackUrl: '/' }); // Call the imported signIn function
+    // await SessionCheck();
   };
+
+
 
   return (
     <div>

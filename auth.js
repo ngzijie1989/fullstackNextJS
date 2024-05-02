@@ -1,13 +1,16 @@
-import { NextAuthConfig } from "next-auth";
+import { CredentialsSignin, NextAuthConfig } from "next-auth";
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import CredentialsProvider from 'next-auth/providers/credentials'
+import prisma from "./app/lib/prisma";
+import { compare } from "bcrypt";
+import { redirect } from "next/navigation";
 
-const credentialsConfig = CredentialsProvider({
+const credentials = CredentialsProvider({
   name: "Credentials",
   credentials: {
-    username: {
-      label: "User Name"
+    email: {
+      label: "email"
     },
 
     password: {
@@ -17,17 +20,60 @@ const credentialsConfig = CredentialsProvider({
   },
 
   async authorize(credentials){
-    if (credentials.username === "sk" && credentials.password === "123") {
-      return {
-        name: "Zijie",
+
+    if (!credentials?.email || !credentials.password) {
+      return null
+    }
+
+    const user = await prisma.User.findFirst({
+      where: {
+        provider: "Credentials",
+        email: credentials.email
       }
-    };
+    })
+
+    if (!user) {
+      return null
+    }
+
+    if (!user.active){
+
+      return null //how to return custom errors}
+    }
+
+    const password = user.password
+
+    const passwordValid = await compare(credentials.password, password)
+
+    if (!passwordValid){
+      return null }
+
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email
+    }
   }
 })
 
 const authConfig = {
-  providers: [Google, credentialsConfig]
-
+  providers: [credentials, Google], 
+  pages: {
+    signIn: "/login" //custom login page redirect
+  },
+  callbacks: {
+    async signIn(){
+      
+      //   return {
+      //   user: true
+      // };
+    },
+    async redirect({ url }){
+      console.log(url)
+      if (url.includes("signin")) return "/"
+      return url;
+    }
+  }
 }
 
 export const { handlers, auth, signIn, signOut  } = NextAuth(authConfig)

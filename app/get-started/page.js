@@ -1,9 +1,14 @@
 import WelcomeBanner from "../components/WelcomeBanner"
-import { getServerSession } from "next-auth";
+import { auth } from "@/auth"
+import { redirect } from "next/navigation"
 
 async function page() {
 
-  const session = await getServerSession()
+  const session = await auth()
+
+  if (!session) {
+    redirect("/")
+  }
 
   return (
     <div className="w-[100%]">
