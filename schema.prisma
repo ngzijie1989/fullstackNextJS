@@ -14,7 +14,7 @@ model User {
   id            String          @id @default(cuid())
   name          String
   email         String          @unique
-  image_path    String?
+  imagePath    String?
   provider      String?
   password      String?
   CreatedAt     DateTime        @default(now())

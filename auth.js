@@ -62,11 +62,41 @@ const authConfig = {
     signIn: "/login" //custom login page redirect
   },
   callbacks: {
-    async signIn(){
-      
-      //   return {
-      //   user: true
-      // };
+    async signIn({profile}){
+      try {
+        if (profile) {
+          const userCheck = await prisma.User.findFirst({
+            where: {
+              email: profile.email
+            }
+          })
+
+          if (!userCheck) {
+
+            const newUser = await prisma.User.create({
+              data: {
+                name: profile.name,
+                email: profile.email,
+                imagePath: profile.picture,
+                provider: "Google",
+                active: true
+              }
+            })
+          } 
+            return {
+              user: true
+            }
+        }
+        return {
+          user: true
+        }
+
+      } catch (e) {
+        return {
+          user: false
+        };
+      }
+    
     },
     async redirect({ url }){
       console.log(url)

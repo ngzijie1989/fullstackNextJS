@@ -1,6 +1,8 @@
 .imageavatar{
   border-radius: 50%;
   border: 0.5px solid grey;
+  height: 48px;
+  width: 48px;
 }
 
 .reviewImageAvatar{

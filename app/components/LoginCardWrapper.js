@@ -12,6 +12,7 @@ function LoginCardWrapper({ email, password, setPassword, setEmail, onClick }) {
   const handleSubmitGoogle = (event) => {
     event.preventDefault();
     signIn('google', { callbackUrl: "/"}); // Call the imported signIn function
+  
   };
 
   const handleSubmitCredentials = (event) => {

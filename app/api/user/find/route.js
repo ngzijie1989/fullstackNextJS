@@ -6,11 +6,15 @@ export async function GET() {
   
   const session = await auth();
 
-  const user = await prisma.User.findFirst({
-    where: {
-      email: session.user.email
-    }
-  })
-
+  if (session === null) {
+    const user = ""
     return NextResponse.json({data: user})
+  } else {
+    const user = await prisma.User.findFirst({
+      where: {
+        email: session.user.email
+      }
+    })
+    return NextResponse.json({data: user})
+  }
 }

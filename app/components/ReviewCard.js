@@ -27,7 +27,7 @@ function ReviewCard({review}) {
     <div className="flex mb-3">
       <div className="my-auto">
       <img  
-        src={error ? "/nouserimagesquare.jpg" : review.User.image_path} 
+        src={error ? "/nouserimagesquare.jpg" : review.User.imagePath} 
         alt={review.User.name} className={styles.reviewImageAvatar}
         onError={handleError}
         />

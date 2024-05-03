@@ -1,20 +1,43 @@
 /* eslint-disable @next/next/no-img-element */
-
+'use client'
 
 import Link from "next/link"
-// import { useSession, signIn, signOut } from "next-auth/react"
 import AuthSign from "./SessionMenu"
 import Image from "next/image"
-import { signIn, signOut } from "@/auth"
 import styles from '@/app/css/avatar.module.css'
 import SignInNav from "./signInNav"
 import SignOutComponent from "./signOut"
-import FetchUser from "../action/FetchUser"
-import { auth } from "@/auth"
+import { useEffect,useState } from "react"
 
-async function NavBar() {
-  const session = await auth()
-  // const user = await FetchUser();
+function NavBar() {
+  const [ email, setEmail ] = useState("")
+  const [ imagePath, setImagePath ] = useState("")
+
+  useEffect(()=>{
+    const getUser = async () => {
+
+      const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json'
+        }
+      }
+
+        const response = await fetch(`/api/user/find` ,options)
+        const getUser = await response.json()
+        const getUserInfo = getUser.data
+
+        if (getUserInfo !== "") {
+          setEmail(getUserInfo.email)
+          if (getUserInfo.imagePath === null){
+          setImagePath("")
+          } else {
+            setImagePath(getUserInfo.imagePath)
+          }
+        }
+    }
+    getUser()
+  },[])
 
   return (
     <div className="navbar bg-base-100 p-3">
@@ -45,13 +68,13 @@ async function NavBar() {
 
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle flex">
-      {session ? <img src={session.user.image} alt={session.user.name} className={styles.imageavatar}/> 
+      {email !== "" ? <img src={imagePath} alt="profile" className={styles.imageavatar}/> 
       : 
       <img src="/nouserimagesquare.jpg" alt="noimage" className={styles.imageavatar}/>}
       </div>
       <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-        {session && session.user ? <li><Link href="/account">My Account</Link></li> : ""}
-        <li>{session && session.user ? (<SignOutComponent />) : (<SignInNav/ >)}</li>
+        {email !== "" ? <li><Link href="/account">My Account</Link></li> : ""}
+        <li>{email !== "" ? (<SignOutComponent />) : (<SignInNav/ >)}</li>
       </ul>
     </div>
   </div>

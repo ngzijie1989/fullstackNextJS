@@ -84,7 +84,7 @@ function MovieWithDetails() {
       const reviews = await response.json()
       setReviews(reviews.data)
 
-      const userResponse = await fetch('/api/user', options)
+      const userResponse = await fetch('/user', options)
       const data = await userResponse.json()
       const user = data.data
       setUser(user)

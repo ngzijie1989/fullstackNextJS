@@ -1,9 +1,14 @@
+import { withUt } from "uploadthing/tw";
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+
+module.exports = withUt({
+  // Your existing Tailwind config
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{ts,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -15,4 +20,4 @@ module.exports = {
     },
   },
   plugins: [require("daisyui")],
-};
+});
