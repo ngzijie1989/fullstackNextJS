@@ -5,13 +5,19 @@ import { useEffect,useState } from "react"
 import styles from "@/app/css/account.module.css"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import UploadImageButton from "../components/UploadImageButton"
 import { useSession } from "next-auth/react";
+import Loading from "../utilis/Loading"
+import toast from "react-hot-toast"
+import ProfilePic from "../components/ProfilePic"
 
 function Page() {
   const [ email, setEmail ] = useState("")
   const [ imagePath, setImagePath ] = useState("")
   const [ name, setName ] = useState("")
+  const [ displayForm, setDisplayForm ] = useState(false)
+  const [ loading, setLoading ] = useState(true)
+  const [ imageSet, setImageSet ] = useState()
+  const [ imageuploadloading, setImageUpLoadLoading ] = useState(false)
 
   const router = useRouter()
 
@@ -30,11 +36,9 @@ function Page() {
           accept: 'application/json'
         }
       }
-
         const response = await fetch(`/api/user/find` ,options)
         const getUser = await response.json()
         const getUserInfo = getUser.data
-        console.log(getUserInfo)
 
         if (getUserInfo !== "") {
           setEmail(getUserInfo.email)
@@ -43,37 +47,102 @@ function Page() {
           setImagePath("")
           } else {
             setImagePath(getUserInfo.imagePath)
+            console.log(imagePath)
           }
         }
+        setLoading(false)
     }
     getUser()
-  },[])
+  },[imagePath])
 
-  const handleEditImage = (e) => {
+  const handleOpenEditImage = (e) => {
     e.preventDefault()
-    return console.log('hello')
+    setDisplayForm(true)
+    return ""
+  }
+
+  const handleImageSet = (e) => {
+    e.preventDefault()
+    setImageSet(e.target.files[0])
+  }
+
+  const handleCloseEditImage = (e) => {
+    e.preventDefault()
+    setDisplayForm(false)
+    return ""
+  }
+
+  const handleSubmitImage = async (e) => {
+    e.preventDefault()
+
+    if (!imageSet){
+      return;
+    }
+
+    setImageUpLoadLoading(true)
+
+    const formData = new FormData();
+    formData.append("file", imageSet);
+    formData.append("upload_preset", "zi5exbhf");
+
+    const options = {method: "POST",
+    body: formData
+    }
+
+    const uploadResponse = await fetch(`https://api.cloudinary.com/v1_1/dycdatne1/image/upload`, options)
+    const uploadedImageData = await uploadResponse.json();
+
+    const info = { 
+      email: email,
+      url: uploadedImageData.url
+    }
+
+    const updateUserOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(info)
+    }
+    toast.success("Profile Image has been changed successfully")
+
+    const updateUserImage = await fetch('/api/user/updateprofileimage', updateUserOptions)
+    const updateUserImageResponse = await updateUserImage.json()
+
+    setDisplayForm(false)
+    setImageSet(false)
+    setImageUpLoadLoading(false)
+    // router.push("/account")
+    window.location.reload(true)
   }
 
   return (
     <div className="w-[80%] mx-auto">
+      {imageuploadloading ? Loading() : ""}
+      {loading ? Loading() : ""}
       <button onClick={()=> router.back()} className=" text-blue-700 hover:underline ">Go Back</button>
       <div className={styles.accountContainer}>
         <h1 className="text-center font-bold text-3xl">Account Info</h1>
         <div className="flex">
-        <img src="imagePath" alt="profileimage" className={styles.accountImage} />
+        <ProfilePic imagePath={imagePath} />
           <div className="flex flex-col justify-between">
             <div>
               <p><span className="font-bold ">User Name: </span>{name}</p>
               <p className="my-2"><span className="font-bold">Email: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span> {email}</p>
             </div>
-            <div>
-              <button onClick={handleEditImage} className="btn btn-primary">Edit profile picture</button>
-              <UploadImageButton />
-              <form action="/api" method="post" enctype="multipart/form-data">
-                <label for="file">File</label>
-                <input id="file" name="file" type="file" />
-                <button type="submit" classname="btn btn-primary">Upload</button>
-              </form>
+            <div className="flex items-center">
+              <button onClick={handleOpenEditImage} className={`btn btn-primary me-3 ${displayForm ? "btn-disabled" : ""}`}>Edit profile Image</button>
+              {displayForm ?              
+              <div className="border p-2 pe-7 relative">
+                <form onSubmit={handleSubmitImage}>
+                  <input required id="file" name="file" type="file" onChange={handleImageSet} accept=".jpg, .png, .gif, .jpeg"/>
+                  <button type="submit" className="btn btn-accent p-2">Upload</button>
+                  <button onClick={handleCloseEditImage} className="p-2 absolute top-[-9px] right-0 ">x</button>
+                </form>
+              </div>
+              :
+              "" }
+
             </div>
           </div>
         </div>

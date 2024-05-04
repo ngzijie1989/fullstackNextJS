@@ -31,7 +31,7 @@ function Page() {
     const favorites = data.data
     setFavorites(favorites)
     setLoading(false)
-    return console.log('hello')
+    return ""
   }
   getFavouriteData();
   },[loading])

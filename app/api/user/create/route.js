@@ -32,7 +32,6 @@ export async function POST(info) {
           userId: userCreate.id
         }
       })
-      console.log(token)
 
       // await SendMail("ngzijie89@gmail.com", "test", "hello world")
       const emailBody = `Hello ${response.name}, Please activate your account by clicking on this link: http://localhost:3000/api/activate?token=${token.token}`

@@ -26,7 +26,6 @@ function Page() {
   useEffect(()=>{ 
     if (modalset === "true") {
       setModal(true)
-      console.log(modal)
       }
     }
   ,[])
@@ -45,7 +44,6 @@ function Page() {
     const res = await ResetPassword(emailField)
 
     if (res === "Successful"){
-      console.log("test")
       setAfterSubmit(true)
       setLoading(false)
 

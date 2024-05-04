@@ -12,7 +12,7 @@ export default function FavoriteMovieCard({ movie, id, setLoading }) {
   const handleDelete = (e) => {
     e.preventDefault()
     setDeleteModal(true)
-    return console.log(deleteModal)
+    return ""
   } 
 
   return (

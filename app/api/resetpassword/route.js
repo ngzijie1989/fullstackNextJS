@@ -50,7 +50,6 @@ export async function PUT(info){
 
   } catch (e) {
     const info = "Server Error"
-    console.log(info)
   return NextResponse.json({data: info})
   }
 
