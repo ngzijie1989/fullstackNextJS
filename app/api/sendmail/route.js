@@ -27,10 +27,17 @@ export async function GET(req){
         }
       })
 
-      const body = `Please click on this link to reset your password. http://localhost:3000/resetpassword?token=${specialToken}&email=${email}`
-      await SendMail(email, "Movie Hunt: Reset Password", body)
-      const info = "Successful"
-      return NextResponse.json({data: info})
+      if (process.env.NODE_ENV === 'production') {
+        const body = `Please click on this link to reset your password. https://fullstack-next-js-mu.vercel.app/resetpassword?token=${specialToken}&email=${email}`
+        await SendMail(email, "Movie Hunt: Reset Password", body)
+        const info = "Successful"
+        return NextResponse.json({data: info})
+      } else {
+        const body = `Please click on this link to reset your password. http://localhost:3000/resetpassword?token=${specialToken}&email=${email}`
+        await SendMail(email, "Movie Hunt: Reset Password", body)
+        const info = "Successful"
+        return NextResponse.json({data: info})
+      }
     }
 
 

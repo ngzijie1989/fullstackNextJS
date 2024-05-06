@@ -32,11 +32,15 @@ export async function POST(info) {
           userId: userCreate.id
         }
       })
-
-      // await SendMail("ngzijie89@gmail.com", "test", "hello world")
-      const emailBody = `Hello ${response.name}, Please activate your account by clicking on this link: http://localhost:3000/api/activate?token=${token.token}`
-      const sendMail = await SendMail(response.email, "Verification of Movie Hunt Account", emailBody)
-
+      
+      if (process.env.NODE_ENV === 'production') {
+        const emailBody = `Hello ${response.name}, Please activate your account by clicking on this link: https://fullstack-next-js-mu.vercel.app/api/activate?token=${token.token}`
+        const sendMail = await SendMail(response.email, "Verification of Movie Hunt Account", emailBody)
+      } else {
+        const emailBody = `Hello ${response.name}, Please activate your account by clicking on this link: http://localhost:3000/api/activate?token=${token.token}`
+        const sendMail = await SendMail(response.email, "Verification of Movie Hunt Account", emailBody)
+      }
+      
       if (!userCreate){
         const error = { error: "Failed to create user" }
         return NextResponse.json({data: error})

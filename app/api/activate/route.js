@@ -36,9 +36,12 @@ export async function GET(req){
   })
 
   const callbackUrl = encodeURIComponent("/") + "&redirect=true";
-  const redirectUrl = `http://localhost:3000/login?callbackUrl=${callbackUrl}`;
 
-  redirect(redirectUrl)
-
- 
+  if (process.env.NODE_ENV === 'production') {
+    const redirectUrl = `https://fullstack-next-js-mu.vercel.app/login?callbackUrl=${callbackUrl}`;
+    redirect(redirectUrl)
+  } else {
+    const redirectUrl = `http://localhost:3000/login?callbackUrl=${callbackUrl}`;
+    redirect(redirectUrl)
+  } 
 }
