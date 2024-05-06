@@ -122,22 +122,33 @@ function Page() {
       {loading ? Loading() : ""}
       <button onClick={()=> router.back()} className=" text-blue-700 hover:underline ">Go Back</button>
       <div className={styles.accountContainer}>
-        <h1 className="text-center font-bold text-3xl">Account Info</h1>
-        <div className="flex">
+        <h1 className="text-center font-bold text-3xl mb-3">Account Info</h1>
+        <div className="flex flex-col text-center md:flex-row md:text-left">
+          <div className="flex justify-center">
         <ProfilePic imagePath={imagePath} />
+          </div>
           <div className="flex flex-col justify-between">
-            <div>
+            <div className="my-3">
               <p><span className="font-bold ">User Name: </span>{name}</p>
-              <p className="my-2"><span className="font-bold">Email: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span> {email}</p>
+              <p className="my-2"><span className="font-bold">Email: </span> {email}</p>
             </div>
-            <div className="flex items-center">
-              <button onClick={handleOpenEditImage} className={`btn btn-primary me-3 ${displayForm ? "btn-disabled" : ""}`}>Edit profile Image</button>
+            <div className="flex flex-col lg:flex-row items-center md:items-start justify-center lg:justify-start">
+              <div className="flex">
+                <button onClick={handleOpenEditImage} className={`btn btn-primary mb-5 me-3 ${displayForm ? "btn-disabled" : ""}`}>Edit profile Image</button>
+              </div>
               {displayForm ?              
-              <div className="border p-2 pe-7 relative">
+              <div className="border p-2 pe-7 relative flex">
                 <form onSubmit={handleSubmitImage}>
-                  <input required id="file" name="file" type="file" onChange={handleImageSet} accept=".jpg, .png, .gif, .jpeg"/>
-                  <button type="submit" className="btn btn-accent p-2">Upload</button>
-                  <button onClick={handleCloseEditImage} className="p-2 absolute top-[-9px] right-0 ">x</button>
+                  <div className="flex flex-col md:flex-row">
+                    <div>
+                      <input className="w-[100%] mb-3" required id="file" name="file" type="file" onChange={handleImageSet} accept=".jpg, .png, .gif, .jpeg"/>
+                      <button onClick={handleCloseEditImage} className="p-2 absolute top-[-9px] right-0 ">x</button>
+                    </div>
+
+                    <div>
+                      <button type="submit" className="btn btn-accent p-2">Upload</button>
+                    </div>
+                  </div>
                 </form>
               </div>
               :

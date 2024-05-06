@@ -276,8 +276,8 @@ function MovieList({type}) {
             </div>
 
             <div className="join grid grid-cols-2 w-[20%]">
-              <button onClick={handlePageDecrement} className="join-item btn btn-outline">Previous</button>
-              <button onClick={handlePageIncrement} className="join-item btn btn-outline">Next</button>
+              <button onClick={handlePageDecrement} className="join-item btn btn-outline md:text-2xl">«</button>
+              <button onClick={handlePageIncrement} className="join-item btn btn-outline md:text-2xl">»</button>
             </div>
         </div>
       

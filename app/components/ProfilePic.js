@@ -4,7 +4,7 @@ import styles from "@/app/css/account.module.css"
 function ProfilePic({imagePath}) {
   return (
     <div>
-        <img src={imagePath} alt="profileimage" className={styles.accountImage} />
+        <img src={imagePath} alt="profileimage" className={`block mx-auto sm:mx-0 ${styles.accountImage}`} />
     </div>
   )
 }

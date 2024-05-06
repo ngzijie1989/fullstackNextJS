@@ -84,10 +84,11 @@ function MovieWithDetails() {
       const reviews = await response.json()
       setReviews(reviews.data)
 
-      const userResponse = await fetch('/user', options)
+      const userResponse = await fetch('/api/user/find', options)
       const data = await userResponse.json()
       const user = data.data
       setUser(user)
+      console.log(user)
 
       const reviewsArray = reviews.data
       const check = reviewsArray.filter((review) => {
@@ -114,11 +115,11 @@ function MovieWithDetails() {
 
   return (
     <div className="w-[60%] mx-auto my-4">
-      <h1 className="font-bold text-4xl mb-3">{title}</h1>
-      <div className="block md:flex">
-        <Image src={`https://image.tmdb.org/t/p/w500${poster_path}`} alt={title} width="400" height="500" />
+      <h1 className="font-bold text-4xl mb-3 text-center lg:text-start">{title}</h1>
+      <div className="block md:flex lg:flex-row flex-col">
+        <Image src={`https://image.tmdb.org/t/p/w500${poster_path}`} alt={title} width="400" height="500" className="flex mx-auto"/>
 
-        <div className="text-center md:text-left mt-3 px-5 flex flex-col justify-around">
+        <div className="text-center lg:text-left mt-3 px-5 flex flex-col justify-around">
           <div>
             <h3 className="font-bold">Overview</h3>
             <p className="py-3">{overview}</p>
@@ -146,7 +147,7 @@ function MovieWithDetails() {
       <div>{reviewLoading ? reviewSkeleton() :
 
       <div>
-        <div className="flex ">
+        <div className="flex justify-center lg:justify-start ">
           <div>
             <AddToFavorites id={propsFavorites.id} info={propsFavorites} setLoading={setLoading} />
           </div>
@@ -158,7 +159,7 @@ function MovieWithDetails() {
               tabIndex={0}
               role="button"
               >
-            <Button className={`ms-3 btn btn-accent mt-3 ${check ? "btn-disabled" : "" }`}>{check ? "You have already added a review" : "Watched? Add a review!" }</Button>
+            <Button className={`mx-auto ms-3 btn btn-accent mt-3 ${check ? "btn-disabled" : "" }`}>{check ? "You have already added a review" : "Watched? Add a review!" }</Button>
           </div>
         </div>
         

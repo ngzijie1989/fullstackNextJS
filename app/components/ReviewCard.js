@@ -25,7 +25,7 @@ function ReviewCard({review}) {
 
   return (
     <div className="flex mb-3">
-      <div className="my-auto">
+      <div className="my-auto hidden md:block">
       <img  
         src={error ? "/nouserimagesquare.jpg" : review.User.imagePath} 
         alt={review.User.name} className={styles.reviewImageAvatar}
@@ -34,12 +34,12 @@ function ReviewCard({review}) {
       </div>
 
       <div className="bg-white p-4 ms-3 rounded-md w-[100%]">
-        <div className="flex border-b justify-between">
+        <div className="flex border-b justify-between flex-col lg:flex-row">
           <p>{review.User.name}</p>
           <p className="text-slate-400">{timestamp}</p>
         </div>
 
-        <div className="flex justify-between pt-2">
+        <div className="flex justify-between pt-2 flex-col md:flex-row">
           <p className="w-[80%]">{review.comment}</p>
           <p>{rating} <span className="text-amber-200"><FontAwesomeIcon icon={faStar} /></span></p>
         </div>
