@@ -10,6 +10,7 @@ import { getEndDateMinusMonth } from "../utilis/date";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; 
 import SignupModal from "./SignupModal";
+import Loading from "../utilis/Loading";
 
 function MovieList({type}) {
 
@@ -22,6 +23,7 @@ function MovieList({type}) {
   const [endDatePlusMonth, setEndDatePlusMonth] = useState(getEndDatePlusMonth());
   const [endDateMinusMonth, setEndDateMinusMonth] = useState(getEndDateMinusMonth()); 
   const [ signUpModal, setSignUpModal ] = useState(false)
+  const [ loading, setLoading ] = useState(false)
 
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -47,6 +49,7 @@ function MovieList({type}) {
       const getMovieData = async () => {
       // const response = await fetch(Url, options)
       if (type === "all") {
+        setLoading(true)
         const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${page}&sort_by=popularity.desc`, options)
         const movies = await response.json()
         const totalPages = movies.total_pages
@@ -56,12 +59,14 @@ function MovieList({type}) {
         } else {
           setTotalPages(totalPages)
         }
-
+        
         setMovieList(movies.results)
+        setLoading(false)
         return movies
       } 
       
       else if (type === "greatest-of-all-time" ) {
+        setLoading(true)
       const response = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&page=${page}&language=en-US&sort_by=vote_average.desc&vote_count.gte=2000`, options)
       const movies = await response.json()
       const totalPages = movies.total_pages
@@ -72,11 +77,13 @@ function MovieList({type}) {
         setTotalPages(totalPages)
       }
 
+      setLoading(false)
       setMovieList(movies.results)
       return movies
       }
 
       else if (type === "upcoming" ) {
+        setLoading(true)
         const startDate= getCurrentDate()
         const EndDate = getEndDatePlusMonth()
         const response = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&language=en-US&page=${page}&primary_release_date.gte=${currentDate}&primary_release_date.lte=${endDatePlusMonth}&sort_by=popularity.desc` , options)
@@ -88,7 +95,8 @@ function MovieList({type}) {
         } else {
           setTotalPages(totalPages)
         }
-  
+        
+        setLoading(false)
         setMovieList(movies.results)
         return movies
         }
@@ -96,7 +104,7 @@ function MovieList({type}) {
         else {
           const EndDate= getCurrentDate()
           const startDate = getEndDateMinusMonth()
-          
+          setLoading(true)
           const response = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&api_key=${process.env.NEXT_PUBLIC_TMDB_KEY}&language=en-US&page=${page}&primary_release_date.gte=${endDateMinusMonth}&primary_release_date.lte=${currentDate}&region=US&sort_by=popularity.desc` , options)
           const movies = await response.json()
           const totalPages = movies.total_pages
@@ -107,6 +115,7 @@ function MovieList({type}) {
             setTotalPages(totalPages)
           }
     
+          setLoading(false)
           setMovieList(movies.results)
           return movies
           }
@@ -220,6 +229,7 @@ function MovieList({type}) {
 
   return (
       <div>
+          {loading ? Loading() : ""}
           <SignupModal signupModal={signUpModal} setSignUpModal={setSignUpModal} />
           <div className='flex justify-center'>
             {type === 'all' && (
