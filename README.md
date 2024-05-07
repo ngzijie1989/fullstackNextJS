@@ -2,6 +2,8 @@ Hi all!
 
  I have completed a movie app titled MovieHunt! which is powered by TMDB API.
 
+ Link: [fullstack-next-js-mu.vercel.app](https://fullstack-next-js-mu.vercel.app/)
+
  This app is made fully using react and next.js.
 
  Features:
