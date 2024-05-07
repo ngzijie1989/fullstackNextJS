@@ -41,10 +41,10 @@ function Page() {
 const formattedDate = formatDate(inputDate);
 
   return (
-    <div className="w-[60%] mx-auto my-4">
-      <h1 className="font-bold text-4xl mb-3">{title}</h1>
+    <div className="w-[90%] sm:w-[70%] mx-auto my-4">
+      <h1 className="font-bold text-4xl mb-3 text-center md:text-left">{title}</h1>
       <div className="block md:flex">
-        <Image src={`https://image.tmdb.org/t/p/w500${poster_path}`} alt={title} width="400" height="500" />
+          <Image src={`https://image.tmdb.org/t/p/w500${poster_path}`} alt={title} width="400" height="500" className="mx-auto" />
 
         <div className="text-center md:text-left mt-3 px-5 flex flex-col justify-around">
             <div>
