@@ -9,6 +9,7 @@ import { useSession } from "next-auth/react";
 import Loading from "../utilis/Loading"
 import toast from "react-hot-toast"
 import ProfilePic from "../components/ProfilePic"
+import { redirect } from "next/navigation"
 
 function Page() {
   const [ email, setEmail ] = useState("")
