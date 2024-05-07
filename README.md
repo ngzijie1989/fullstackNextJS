@@ -20,5 +20,6 @@ Hi all!
  5) Tailwind CSS and DaisyUI
  6) Implemented loading and shimmering animation while loading during data fetching 
  7) Responsive Design for the webpage
+ 8) Link Up with Cloudinary for image storing.
 
  I will continue to add more features and continue to learn more on React and nextJS!
