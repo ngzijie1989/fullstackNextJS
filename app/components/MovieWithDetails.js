@@ -114,7 +114,7 @@ function MovieWithDetails() {
   }
 
   return (
-    <div className="w-[60%] mx-auto my-4">
+    <div className="w-[90%] sm:w-[60%] mx-auto my-4">
       <h1 className="font-bold text-4xl mb-3 text-center lg:text-start">{title}</h1>
       <div className="block md:flex lg:flex-row flex-col">
         <Image src={`https://image.tmdb.org/t/p/w500${poster_path}`} alt={title} width="400" height="500" className="flex mx-auto"/>
@@ -159,7 +159,7 @@ function MovieWithDetails() {
               tabIndex={0}
               role="button"
               >
-            <Button className={`mx-auto ms-3 btn btn-accent mt-3 ${check ? "btn-disabled" : "" }`}>{check ? "You have already added a review" : "Watched? Add a review!" }</Button>
+            <Button className={`mx-auto ms-3 btn btn-accent mt-3 ${check ? "btn-disabled" : "" }`}>{check ? "You have added a review" : "Watched? Add a review!" }</Button>
           </div>
         </div>
         

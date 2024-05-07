@@ -29,8 +29,8 @@ function LoginCardWrapper({ email, password, setPassword, setEmail, onClick }) {
   const error = params.get('error')
 
   return (
-    <div className={`${styles.loginContainer}`}>
-      <h1 className="font-bold text-3xl mb-3">
+    <div className={`w-[90%] md:w-[70%] lg:w-[40%] ${styles.loginContainer}`}>
+      <h1 className="font-bold text-3xl mb-3 text-center">
         Welcome to Movie Hunt!
       </h1>
       {!!error ? <AuthenticationError/> : ""}
@@ -56,7 +56,8 @@ function LoginCardWrapper({ email, password, setPassword, setEmail, onClick }) {
       <form onSubmit={handleSubmitGoogle}>
       <button className={`btn ${styles.googleButton}`} >
         <img src="/googleicon.png" alt="Google Logo" className={styles.googleLogo} />
-        &nbsp; Sign in with Google
+        <span className="hidden sm:block">
+        &nbsp; Google Sign in</span>
       </button>
       </form>
       </div>

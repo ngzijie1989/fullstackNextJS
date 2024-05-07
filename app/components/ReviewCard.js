@@ -36,12 +36,12 @@ function ReviewCard({review}) {
       <div className="bg-white p-4 ms-3 rounded-md w-[100%]">
         <div className="flex border-b justify-between flex-col lg:flex-row">
           <p>{review.User.name}</p>
-          <p className="text-slate-400">{timestamp}</p>
+          <p className="text-slate-400 text-xs sm:text-base ">{timestamp}</p>
         </div>
 
         <div className="flex justify-between pt-2 flex-col md:flex-row">
-          <p className="w-[80%]">{review.comment}</p>
-          <p>{rating} <span className="text-amber-200"><FontAwesomeIcon icon={faStar} /></span></p>
+          <p className="w-full text-xs sm:text-base font-bold sm:font-normal">{review.comment}</p>
+          <p>{rating}/5 &nbsp;<span className="text-amber-200"><FontAwesomeIcon icon={faStar} /></span></p>
         </div>
       </div>
     </div>
