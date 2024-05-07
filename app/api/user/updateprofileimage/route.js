@@ -19,8 +19,6 @@ export async function POST(info) {
     }
   })
 
-  console.log(userUpdateImage)
-
     return NextResponse.json({data: userUpdateImage})
   // }
 }
