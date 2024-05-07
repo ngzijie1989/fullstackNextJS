@@ -57,7 +57,10 @@ const credentials = CredentialsProvider({
 })
 
 const authConfig = {
-  providers: [credentials, Google], 
+  providers: [credentials, Google],
+  cookies: {
+    secure: true
+  },
   pages: {
     signIn: "/login" //custom login page redirect
   },
@@ -102,6 +105,13 @@ const authConfig = {
       console.log(url)
       if (url.includes("signin")) return "/"
       return url;
+    },
+    async session({session, token}){
+      return token
+    }, 
+    async jwt({token, user}){
+      console.log('JWT Callback', { token, user })
+      return token
     }
   }
 }

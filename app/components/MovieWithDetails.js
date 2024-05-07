@@ -34,10 +34,9 @@ function MovieWithDetails() {
 
   const session = useSession()
 
-  if (!session.data || !session.status === "authenticated") {
+  if (!session.data) {
     redirect("/no-access")
   }
-
 
   function formatDate(inputDate) {
     // Parse the input date string
@@ -79,7 +78,9 @@ function MovieWithDetails() {
   };
 
   useEffect(()=> {
+
     const getMovieReviews = async () => {
+      console.log(session)
       const response = await fetch(`/api/reviews/all?tmdbid=${tmdbId}&title=${title}`, options)
       const reviews = await response.json()
       setReviews(reviews.data)
@@ -88,7 +89,6 @@ function MovieWithDetails() {
       const data = await userResponse.json()
       const user = data.data
       setUser(user)
-      console.log(user)
 
       const reviewsArray = reviews.data
       const check = reviewsArray.filter((review) => {
