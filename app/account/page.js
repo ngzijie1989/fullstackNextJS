@@ -48,7 +48,6 @@ function Page() {
           setImagePath("")
           } else {
             setImagePath(getUserInfo.imagePath)
-            console.log(imagePath)
           }
         }
         setLoading(false)

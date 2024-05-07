@@ -80,7 +80,6 @@ function MovieWithDetails() {
   useEffect(()=> {
 
     const getMovieReviews = async () => {
-      console.log(session)
       const response = await fetch(`/api/reviews/all?tmdbid=${tmdbId}&title=${title}`, options)
       const reviews = await response.json()
       setReviews(reviews.data)
