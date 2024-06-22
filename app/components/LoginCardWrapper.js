@@ -38,14 +38,14 @@ function LoginCardWrapper({ email, password, setPassword, setEmail, onClick }) {
         <div className="mb-3">
           <label className="flex flex-col w-full">
             Email
-            <input type="text" placeholder="JeffBezos@email.com" className="input input-bordered w-full" onChange={(e)=> setEmail(e.currentTarget.value)} />
+            <input required type="text" placeholder="JeffBezos@email.com" className="input input-bordered w-full" onChange={(e)=> setEmail(e.currentTarget.value)} />
           </label>
         </div>
 
         <div className="mb-3">
           <label className="flex flex-col w-full">
             Password
-            <input type="password"  className="input input-bordered w-full" onChange={(e)=> setPassword(e.currentTarget.value)}/>
+            <input required type="password"  className="input input-bordered w-full" onChange={(e)=> setPassword(e.currentTarget.value)}/>
           </label>
         </div>
 
