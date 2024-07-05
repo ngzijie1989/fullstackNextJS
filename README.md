@@ -5,7 +5,7 @@ I have completed a movie app titled MovieHunt! which is powered by TMDB API and 
 Please vist my website to learn more! Link: [fullstack-next-js-mu.vercel.app](https://fullstack-next-js-mu.vercel.app/)
 
 You may use this dummy account to log in to explore its functions. Please do visit the about page in the website to know more about me!<br>
-Email: **ng_zi_jie@hotmail.com**
+Email: **ng_zi_jie@hotmail.com**<br>
 Password: **password1**
 
 <h1 className="underline">About my App</h1>
