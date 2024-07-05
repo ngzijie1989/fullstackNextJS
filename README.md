@@ -41,5 +41,6 @@ Password: **password1**
 6) Implemented loading and shimmering animation while loading during data fetching<br>
 7) Responsive Design for the webpage<br>
 8) Link Up with Cloudinary for image storing.<br>
-   
+
+<br><br>
 Let me know your thoughts!
