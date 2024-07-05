@@ -12,17 +12,16 @@ Password: **password1**
 
 1) Full Auth was implemented (from registering an account, forgot password, google sign in, normal sign in. Libraries such as auth.js, nodemailers, bcrypt has been used!)
 ![auth](https://github.com/ngzijie1989/fullstackNextJS/assets/152587020/6cd8dfc6-b47c-454b-94bb-35569cc53acb)
-
+<br>
 2) Main page, whereby all movies can be viewed. Pagination and search has been implemented. I have also categorized movies to some key categories such as upcoming, now playing, greatest of all time)
 ![main page](https://github.com/ngzijie1989/fullstackNextJS/assets/152587020/5dbae370-51a4-4263-a34f-713cf711433a)
-    
+<br>
 3) Upon selecting a movie, details of the movies can be seen. Also, users can add to watchlist and also add reviews!
 ![single movie](https://github.com/ngzijie1989/fullstackNextJS/assets/152587020/7d2162ae-bf19-4ab6-94c6-85a3cdbb9d49)
-
+<br>
 4) Watch List section
 ![watch list](https://github.com/ngzijie1989/fullstackNextJS/assets/152587020/e89984a8-ad21-4cc4-9335-8e5b64e1084c)
-
-   
+<br> 
 5) Web App is fully responsive and can be viewed from all devices of different size!
 ![responsive](https://github.com/ngzijie1989/fullstackNextJS/assets/152587020/f5f17c95-9c98-4d8c-972b-ed717afe079c)
 
