@@ -1,4 +1,4 @@
-![auth](https://github.com/ngzijie1989/fullstackNextJS/assets/152587020/378e2b01-95af-4560-a442-8d1f7e6db0eb)Hi all!
+Hi all!
 
 I have completed a movie app titled MovieHunt! which is powered by TMDB API and hosted by Vercel.
 
