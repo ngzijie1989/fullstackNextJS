@@ -33,13 +33,13 @@ Password: **password1**
 **Prisma**: Prisma as the ORM relational mapping between MongoDB and my main application. Prisma is also good to add seed data and schema along with tables into my main App!
 
 <h1 className="underline">Libraries i used and things I learnt</h1>
-1) Auth.js where i learned about nodemailer, protect routes using session cookies, credentials sign in and google sign in. 
-2) API fetching from the TMDB API and then also from the database and backend server
-3) Used Prisma as the ORM
-4) Used Vercel Postgresql as the database
-5) Tailwind CSS and DaisyUI
-6) Implemented loading and shimmering animation while loading during data fetching
-7) Responsive Design for the webpage
-8) Link Up with Cloudinary for image storing.
+1) Auth.js where i learned about nodemailer, protect routes using session cookies, credentials sign in and google sign in.<br>
+2) API fetching from the TMDB API and then also from the database and backend server<br>
+3) Used Prisma as the ORM<br>
+4) Used Vercel Postgresql as the database<br>
+5) Tailwind CSS and DaisyUI<br>
+6) Implemented loading and shimmering animation while loading during data fetching<br>
+7) Responsive Design for the webpage<br>
+8) Link Up with Cloudinary for image storing.<br>
    
 Let me know your thoughts!
