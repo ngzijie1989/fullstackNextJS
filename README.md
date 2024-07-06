@@ -27,7 +27,7 @@ Password: **password1**
 
 <h1 className="underline">Tech Stack</h1>
 
-**nextJS**: nextJS is an excellent framework that integrates seamlessly with Tailwind CSS and TypeScript, providing a streamlined and easy setup from the initial boilerplate. Server side actions help to reduce the hassle of going back and fro the server, and this reduces the time for development. Great!
+**nextJS**: I used nextJS for this web app, hosted on Vercel and using PostgreSQL for my DB. 
 
 **Prisma**: Prisma as the ORM relational mapping between MongoDB and my main application. Prisma is also good to add seed data and schema along with tables into my main App!
 
