@@ -10,7 +10,7 @@ Password: **password1**
 
 <h1 className="underline">About my App</h1>
 
-1) Full Auth was implemented (from registering an account, forgot password, google sign in, normal sign in. Libraries such as auth.js, nodemailers, bcrypt has been used!)
+1) Full Auth was implemented (from registering an account, forgot password, google sign in, credentials sign in. Libraries such as auth.js, nodemailer, bcrypt has been used!)
 ![auth](https://github.com/ngzijie1989/fullstackNextJS/assets/152587020/6cd8dfc6-b47c-454b-94bb-35569cc53acb)
 
 2) Main page, whereby all movies can be viewed. Pagination and search has been implemented. I have also categorized movies to some key categories such as upcoming, now playing, greatest of all time)
