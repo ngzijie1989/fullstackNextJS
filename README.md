@@ -29,7 +29,9 @@ Password: **password1**
 
 **nextJS**: I used nextJS for this web app, hosted on Vercel and using PostgreSQL for my DB. 
 
-**Prisma**: Prisma as the ORM relational mapping between MongoDB and my main application. Prisma is also good to add seed data and schema along with tables into my main App!
+**Prisma**: Prisma as the ORM relational mapping between PostgreSQL DB and my main application. Prisma is also good to add seed data and schema along with tables for the data structure of my app!
+
+**Tailwind CSS**: Tailwind is used for CSS in this app!
 
 <h1 className="underline">Libraries i used and things I learnt</h1>
 1) Auth.js where i learned about nodemailer, protect routes using session cookies, credentials sign in and google sign in.<br>
